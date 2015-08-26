@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Item list{% endblock %}
+
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+            <h1>Items list</h1>
+            <ul>
+                {% for object in object_list %}
+                    <li><a href="{% url 'item-detail' object.id %}">{{ object }}</a></li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}
+{% block mainaction %}
+    <a href="{% url 'item-create' %}">+ Add Item</a>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Delete transaction{% endblock %}
+
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+<h1>Delete transaction</h1>
+
+<h2>Really delete {{ lottransactions.soldToName }} from {{ lottransactions.lot }}?</h2>
+
+<p>It will be permanently lost</p>
+
+<form method="post">{% csrf_token %}
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a href="{% url 'lot-detail' lottransactions.lot.pk %}" class="btn">Cancel</a>
+</form>
+</div>
+    </div>
+{% endblock %}
+{% block rightcolumn %}
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Client Detail{% endblock %}
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+            <h1>{{ object.cName }}</h1>
+            <ul>
+                <p><a href="{% url 'client-list' %}">Back to client list</a></p>
+
+                {#<p>{{ object.id }}</p>#}
+                {#<p>{{ object.name }}</p>#}
+            </ul>
+            <style>
+
+                #invoice-template .invoice-addresses {
+                    clear: both;
+                    margin: 20px 0 40px;
+                }
+
+                #invoice-template .address {
+                    float: left;
+                    width: 220px;
+                }
+
+                #invoice-template .to-address {
+                    margin-left: 25px;
+                    margin-right: 25px;
+                    padding-left: 3.5em;
+                    text-indent: -3.5em;
+                }
+
+                #invoice-template .to-address p {
+                    padding-left: 1.5em;
+                    text-indent: 0.0em;
+                    position: relative;
+                    top: -20px;
+                }
+
+            </style>
+            <div id="invoice-template">
+                <div class="clearfix">
+                    <div class="invoice-addresses clearfix">
+
+
+                        <div class="address to-address">
+                            <h4>Sold To</h4>
+
+                            <p><strong>{{ object.cName }}</strong></p>
+
+                            <p>{{ object.cAddressLine1 }}</p>
+
+                            <p>{{ object.cAddressLine2 }}</p>
+
+                            <p>{{ object.cCity }} {{ object.cState }} {{ object.cPostalCode }}</p>
+
+
+                        </div>
+
+
+                        <div class="address to-address">
+                            <h4>Ship To</h4>
+
+                            <p><strong>{{ object.sName }}</strong></p>
+
+                            <p>{{ object.cAddressLine1 }}</p>
+
+                            <p>{{ object.cAddressLine2 }}</p>
+
+                            <p>{{ object.cCity }} {{ object.cState }} {{ object.cPostalCode }}</p>
+
+
+                        </div>
+                        <div class="clearfix">
+                            {#                        <a#}
+                            {#                                href="{% url 'lottrans-delete' object.pk lottransaction.pk %}"><i#}
+                            {#                                class="fa fa-remove"></i></a>#}
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

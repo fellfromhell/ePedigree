@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>Invoice #15020817 - Vivin Cyriac - powered by Ronin</title>
+
+    <link href="/assets/authenticated_application-992cb029f4156f1521a3936117218d3c.css" media="screen" rel="stylesheet"
+          type="text/css"/>
+    <script src="/assets/authenticated_application-5d451e7b8295db71ecfa86c77bc9c204.js" type="text/javascript"></script>
+    <link href="/assets/print-3ab278516bd307b658de5e5eda3c94ce.css" media="print" rel="stylesheet" type="text/css"/>
+
+    <meta content="authenticity_token" name="csrf-param"/>
+    <meta content="TH+46TBfq5D+KIu4Rk4zGHBBrgbmbafoliAkGv9+JXU=" name="csrf-token"/>
+
+    <link rel="shortcut icon" type="image/x-png" href="/images/favicon.png"/>
+
+    <link rel="fluid-icon" href="/images/site/logo-512.png" title="Ronin"/>
+
+
+</head>
+
+<body>
+<div id="header" class="clearfix">
+    <div id="header-wrapper">
+
+        <div id="header-right">
+            <ul id="header-intro" class="clearfix">
+                <li class="first"><a href="/staff/164821"><img class="gravatar" alt="" width="16" height="16"
+                                                               src="https://secure.gravatar.com/avatar/2a8e0b420d3456752d74d4db4d51a145?rating=PG&amp;size=16&amp;default=https%3A%2F%2Fwww.roninapp.com%2Fassets%2Fdefault_avatars%2Favatars%2Fmissing_mini_thumb-da2281f8de79c4ae8cfc688026476492.jpg"/></a><a
+                        href="/staff/164821">Vivin Cyriac</a></li>
+                <li><a href="/account/view">Account</a></li>
+
+                <li><a href="/staff">Staff</a></li>
+
+                <li class="last"><a href="/auth/logout">Sign out</a></li>
+            </ul>
+        </div>
+
+        <div id="header-logo">
+            <h1><a href="/main">Vivin Cyriac</a></h1>
+        </div>
+
+
+    </div>
+</div>
+<!-- /header -->
+
+<div id="navigation" class="clearfix">
+    <div id="navigation-wrapper">
+        <ul class="clearfix">
+            <li><a href="/main">Dashboard</a></li>
+            <li><a href="/clients">Clients</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li class="selected"><a href="/invoices">Invoices</a></li>
+            <li><a href="/estimates">Estimates</a></li>
+            <li><a href="/expenses">Expenses</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/report/invoice">Reports</a></li>
+        </ul>
+
+    </div>
+</div>
+<!-- /header -->
+
+
+<div id="invoice-contents">
+    <div id="invoice-contents-bg">
+        <div id="invoice-contents-wrapper" class="clearfix ">
+            <div class="invoice-top-info">
+
+
+            </div>
+
+
+            <div id="invoice-main">
+                <div id="invoice-paper" class="clearfix rounded">
+                    <div class="invoice-breadcrumbs clearfix">
+                        <div class="invoice-breadcrumbs-wrapper">
+
+                            <ul class="breadcrumb">
+                                <li><a href="https://vivin.roninapp.com/invoices">Back</a></li>
+                                <li><a href="/invoices">All invoices</a></li>
+                                <li><a href="/clients/118770">Mainspring Rx</a></li>
+                                <li><a href="/clients/118770/invoices">Mainspring Rx invoices</a></li>
+
+                                <li><a href="/invoices/461152">#15020817</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <!-- /header -->
+
+
+                    <script type="text/javascript">
+                        document.observe("dom:loaded", function () {
+                            var actions = $$('#invoice-actions-list li a');
+                            actions.each(function (element) {
+                                var tooltip = document.createElement('span');
+                                tooltip.className = 'action-tooltip';
+                                tooltip.style.display = 'none';
+
+                                var tooltipDecorator = document.createElement('span');
+                                tooltipDecorator.className = 'tooltip-decorator';
+
+                                var tooltipContents = document.createElement('span');
+                                tooltipContents.className = 'tooltip-body';
+                                tooltipContents.innerHTML = element.title;
+
+                                tooltip.appendChild(tooltipDecorator);
+                                tooltip.appendChild(tooltipContents);
+
+                                element.appendChild(tooltip);
+                                element.observe('mouseover', function () {
+                                    $(tooltip).show();
+                                });
+
+                                element.observe('mouseout', function () {
+                                    $(tooltip).hide();
+                                });
+                            });
+                        });
+                    </script>
+                    <div id="label-container">
+                        <div class="paid-label"></div>
+                    </div>
+
+                    <style>
+                        #invoice-template h1 {
+                            color: #444444;
+                            font-size: 220%;
+                            letter-spacing: 0px;
+                            line-height: 1.2;
+                            margin-bottom: 0;
+                            padding-bottom: 0;
+                        }
+
+                        #invoice-template h2 {
+                            color: silver;
+                            font-size: 170%;
+                            letter-spacing: 0px;
+                            line-height: 1.2;
+                            margin-top: 5px;
+                            padding-bottom: 15px;
+                        }
+
+                        #invoice-template .invoice-addresses {
+                            clear: both;
+                            margin: 20px 0 40px;
+                        }
+
+                        #invoice-template .address {
+                            float: left;
+                            width: 220px;
+                        }
+
+                        #invoice-template .from-address {
+                            margin-right: 25px
+                        }
+
+                        #invoice-template .invoice-table {
+                            margin-bottom: 30px;
+                        }
+
+                        #invoice-template .invoice-formatted-display {
+                            margin-bottom: 40px;
+                            width: 465px;
+                            font-size: 90%;
+                        }
+
+                        #invoice-template .invoice-formatted-display h3 {
+                            color: #AAAAAA;
+                            font-size: 120%;
+                            margin-bottom: 10px;
+                            padding-bottom: 0;
+                        }
+                    </style>
+
+                    <div id="invoice-template">
+                        <div class="clearfix">
+                            <div style="float:right">
+
+                            </div>
+
+                            <h1>Invoice #15020817</h1>
+
+                            <h2>Mainspringrx website maintenance</h2>
+                        </div>
+
+                        <div class="invoice-addresses clearfix">
+                            <div id="invoice-right-box">
+                                <table>
+                                    <tr>
+                                        <td class="right-box-label">Invoice No.</td>
+                                        <td>15020817</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="right-box-label">Invoice Date</td>
+                                        <td>July 8, 2015</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="right-box-label">Invoice Paid</td>
+                                        <td>July 15, 2015</td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                            <div class="address from-address">
+                                <h4>From</h4>
+
+                                <p class="attn"><strong>Vivin Cyriac</strong></p>
+
+                                <p>316 LANGFORD RD</p>
+
+                                <p>BROOMALL, PA 19008</p>
+
+                                <p><a href="mailto:vcyriac@gmail.com">vcyriac@gmail.com</a></p>
+
+
+                            </div>
+
+
+                            <div class="address to-address">
+                                <h4>To</h4>
+
+                                <p class="attn"><strong>Mainspring Rx</strong></p>
+
+                                <p>569 ABBOTT DR</p>
+
+                                <p>BROOMALL, PA 19008</p>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <table class="invoice-table">
+                            <tr class="invoice-table-caption">
+                                <td colspan="4">
+                                    Invoice Items
+                                </td>
+                            </tr>
+
+                            <tr class="invoice-table-header">
+                                <th>Item Description</th>
+                                <th>Qty</th>
+                                <th>Price per unit</th>
+                                <th class="invoice-column-price">Total Price</th>
+                            </tr>
+
+
+                            <tr class="invoice-item">
+                                <td class="invoice-column-desc" width="50%">
+                                    <p>Mainspring website changes and maintenance for June</p>
+                                </td>
+                                <td class="invoice-column-quantity">
+                                    4
+                                </td>
+                                <td class="invoice-column-price">
+                                    $105.00
+
+
+                                </td>
+                                <td class="invoice-column-total">
+                                    $420.00
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="4">
+                                </td>
+                            </tr>
+
+                            <tr class="invoice-table-caption">
+                                <td colspan="4">
+                                    Invoice Totals
+                                </td>
+                            </tr>
+
+
+                            <tr class="summary-item">
+                                <td colspan="3">
+                                    Invoice Total
+                                </td>
+                                <td class="invoice-column-total">
+                                    $420.00
+                                </td>
+                            </tr>
+
+
+                            <tr class="summary-item">
+                                <td colspan="3">
+                                    Invoice Payment - July 15, 2015
+
+                                </td>
+                                <td class="invoice-column-total">
+                                    ($420.00)
+                                </td>
+                            </tr>
+
+
+                            <tr class="summary-item">
+                                <td colspan="3" class="invoice-cell-total">
+
+                                    Remaining Balance
+
+                                </td>
+                                <td class="invoice-column-total invoice-cell-total">
+                                    USD $0.00
+                                </td>
+                            </tr>
+
+                        </table>
+
+
+                        <div class="left-module" id="invoice-note-display"><p>Website administration and monthly support
+                            @ $105/hr<br/>
+                            Not to Exceed 4 hours.<br/>
+                            If major changes are to be executed, will provide a separate Proposal.</p></div>
+
+                    </div>
+
+
+                    <div id="invoice-history-and-payments" class="clearfix">
+                        <div class="left-module" id="payments-column">
+                            <h3>Payments</h3>
+                            <ul id="payment-list" class="data-list">
+                                <li class="payment data-item clearfix">
+                                    <div class="payment-right right-column">
+                                        <div class="payment-amount">$420.00</div>
+                                        <div class="payment-delete"><a href="/invoices/461152/payments/314002"
+                                                                       data-confirm="Are you sure you want to delete this payment?"
+                                                                       data-method="DELETE" rel="nofollow">delete</a>
+                                        </div>
+                                    </div>
+                                    <div class="payment-note data-item-description"></div>
+                                    <div class="payment-timestamp data-item-timestamp">Payment received: Wednesday, July
+                                        15, 2015
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <p>
+                                <a href="/invoices/461152/payments/new" class="small silver light button"><span>Enter payment</span></a>
+                            </p>
+
+                            <p class="de-emphasis">
+                                Record payments that have been received from the client (e.g. by check or cash).
+                            </p>
+                        </div>
+
+                        <div class="left-module" id="comments-column">
+                            <h3>History &amp; Comments</h3>
+
+                            <p class="empty">No comments have been made</p>
+
+
+                            <div id="add-comment" class="reveal" style="display: none">
+                                <div>
+
+
+                                    <div class="app-form clearfix">
+                                        <form accept-charset="UTF-8" action="/invoices/461152/comments"
+                                              class="new_comment" id="new_comment" method="post">
+                                            <div style="margin:0;padding:0;display:inline"><input name="utf8"
+                                                                                                  type="hidden"
+                                                                                                  value="&#x2713;"/><input
+                                                    name="authenticity_token" type="hidden"
+                                                    value="TH+46TBfq5D+KIu4Rk4zGHBBrgbmbafoliAkGv9+JXU="/></div>
+                                            <div class="field clearfix">
+                                                <label for="comment_body">Comment:</label>
+
+                                                <div class="field-inner">
+              <textarea cols="40" id="comment_body" name="comment[body]" rows="5">
+</textarea>
+
+                                                    <div class="explanatory">
+                                                        <input name="comment[staff_only]" type="hidden"
+                                                               value="0"/><input id="comment_staff_only"
+                                                                                 name="comment[staff_only]"
+                                                                                 type="checkbox" value="1"/> <label
+                                                            for="comment_staff_only">Internal comment to staff
+                                                        only</label>
+                                                    </div>
+
+                                                    <div class="explanatory">An email will be sent to other users
+                                                        notifying them of this message.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="field clearfix">
+                                                <label></label> <!-- Safari doesn't know what to do with <label /> -->
+                                                <div class="field-inner">
+                                                    <input name="commit" type="submit" value="Add Comment"/> or <a
+                                                        href="#"
+                                                        onclick="Effect.toggle(&quot;add-comment&quot;,&#x27;appear&#x27;,{duration:0.5});; return false;">Cancel</a>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p>
+                                <a class="button small silver light" href="#" onclick="Effect.toggle(&quot;add-comment&quot;,&#x27;appear&#x27;,{duration:0.5});
+setTimeout(function() {
+;
+$(&quot;comment_body&quot;).focus();
+}, 600);; return false;"><span>Add a comment</span></a>
+
+                            </p>
+
+
+                        </div>
+
+                        <div class="left-module" id="attachments-column">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="invoice-paper-footer">
+                    Invoicing provided by <strong><a href="http://www.roninapp.com"><img alt="Favicon"
+                                                                                         src="/assets/favicon-b79e1a1966d83b5c1a9ce5ee07372823.png"/>
+                    Ronin</a></strong>
+                </div>
+            </div>
+
+            <div id="invoice-actions-bar">
+                <div class="topper"></div>
+                <div class="bottom">
+
+                    <ul id="invoice-actions-list">
+                        <li><a href="/invoices/461152/messages/new" title="Send invoice receipt via email"><img
+                                alt="Send"
+                                src="/assets/app/invoice-icons/send-f260f6d847304c644544cd89044e2bf8.png"/></a></li>
+
+                        <li><a href="/invoices/pdf/461152.pdf?key=5tnG0R1N3Kf" title="View print-ready PDF"><img
+                                alt="Pdf-print"
+                                src="/assets/app/invoice-icons/pdf-print-aa22581f3f66e4e39969464e6ad3d052.png"/></a>
+                        </li>
+                        <li><a href="/invoices/envelope_pdf/461152.pdf?key=5tnG0R1N3Kf"
+                               title="View Snail Mail PDF (standard 2-window envelope format)"><img alt="Pdf-envelope"
+                                                                                                    src="/assets/app/invoice-icons/pdf-envelope-df0aa0700c392b8010bd0323f2f88edc.png"/></a>
+                        </li>
+
+
+                        <li><a href="/invoices/461152/client_view?key=5tnG0R1N3Kf&amp;suppress=true"
+                               title="Preview as client"><img alt="User"
+                                                              src="/assets/app/invoice-icons/user-d4879acde8c7ad691b28b61ada3cea95.png"/></a>
+                        </li>
+
+                        <li><a href="/invoices/461152/payments/new" title="Record payment"><img alt="Cash"
+                                                                                                src="/assets/app/invoice-icons/cash-53eaf576471c9c64f7728625cefca4d3.png"/></a>
+                        </li>
+
+                        <li><a href="/invoices/461152/edit" title="Edit invoice"><img alt="Edit"
+                                                                                      src="/assets/app/invoice-icons/edit-f83863bb5875c1ce87b447dd008efb71.png"/></a>
+                        </li>
+
+
+                        <li><a href="/invoices/new?from_invoice=461152" title="Clone invoice"><img alt="Copy"
+                                                                                                   src="/assets/app/invoice-icons/copy-9613a694decf7b0c1ef63bb269ff08f4.png"/></a>
+                        </li>
+
+
+                        <li><a href="/invoices/461152?invoice%5Bstatus%5D=3" data-method="PUT" rel="nofollow"
+                               title="Cancel invoice"><img alt="Stop"
+                                                           src="/assets/app/invoice-icons/stop-9f390ceb0ec24d54f82f956804b2dde2.png"/></a>
+                        </li>
+
+                        <li><a href="/invoices/461152"
+                               data-confirm="This action is irreversible. Are you sure you want to delete this invoice? "
+                               data-method="DELETE" rel="nofollow" title="Delete invoice"><img alt="Trash"
+                                                                                               src="/assets/app/invoice-icons/trash-5035e991e434ad43855ff7347017d710.png"/></a>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

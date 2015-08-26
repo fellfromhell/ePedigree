@@ -1,0 +1,11 @@
+{% if clients.count > 0 %}
+
+{% for client in clients %}
+    <li><a href="/clients/get/{{ client.id }}/">{{ client.cName }}</a></li>
+{% endfor %}
+
+{% else %}
+
+<li>None to show!</li>
+
+{% endif %}

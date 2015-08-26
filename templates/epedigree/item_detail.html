@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Item Detail{% endblock %}
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+<h1>{{ object }}</h1>
+<ul>
+<p><a href="{% url 'item-list' %}">Back to Items List</a></p>
+
+<p>{{ object.id }}</p>
+<p>{{ object.name }}</p>
+</ul>
+            </div>
+    </div>
+{% endblock %}
+{% block rightcolumn %}
+{% endblock %}

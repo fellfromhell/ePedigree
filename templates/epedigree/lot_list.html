@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Lot list{% endblock %}
+
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+            <h1>Lot list</h1>
+            <ul>
+                {% for object in object_list %}
+                    <li><a href="{% url 'lot-detail' object.id %}">{{ object }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
+{% block mainaction %}
+    <a href="{% url 'lot-create' %}">+ Add Lot</a>
+{% endblock %}

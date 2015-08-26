@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% block title %}
+    Client List
+{% endblock %}
+
+{% comment %}
+   humanize:
+      For the "apnumber" filter, to display "two" instead of
+      "2". Requries 'django.contrib.humanize' in INSTALLED_APPS
+
+   static:
+      To access the public static file directory, without having to hard
+      code urls.
+{% endcomment %}
+{% load humanize %}
+{% load static %}
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+
+            <div class="search" id="search">
+                <!--
+                   The form is submitted on every key press ("keyup") to the ajax
+                   function. If the number of characters is greater than
+                   MIN_SEARCH_CHARS, then it is submitted to the Django view. Django
+                   then renders the sub-template
+
+                   color_search_results__html_snippet.txt
+
+                   whose output is fed back to the ajax function. Ajax then populates
+                   the rendered sub-template into the below div.
+
+                   This no longer needs to be a form since the JavaScript directly
+                   reads both fields (that is, it attaches event listeners to them,
+                   which automatically react to key-presses). To be clearer, I've
+                   added "color_" to the beginning of the text field's id.
+
+                   Notes:
+                      - csrf_token-s are not required in get requests.
+                      - Only because the view expects a GET request, the search may
+                      be directly tested with
+                         http://my.website/color_liker/search?color_search_text=bl
+                -->
+{#                <input type="text" id="color_search_text" name="search_text"/>#}
+                {% if user.is_staff %}
+                <div style="margin:0;padding:0;display:inline"><input name="search_text" id="color_search_text" type="text"
+                                                                                  autocomplete="off"/>
+                </div>
+                {% endif %}
+
+{#                <p>(Requires {{ MIN_SEARCH_CHARS|apnumber }} or more characters)</p>#}
+
+
+
+            </div>
+            <h1>Clients</h1>
+
+            <ul class="sub-tab-menu">
+                <li class="selected"><a href="{% url 'client-list' %}">Companies</a></li>
+{#                <li><a href="/contacts">People</a></li>#}
+            </ul>
+            <div class="left-module" id="client-container">
+                <h3>
+
+{#                    <ul class="view-filter">#}
+{#                        <li class="view-filter-dropdown">#}
+{#                            <a class="view-filter-label" href="javascript:void">#}
+{#                                Active#}
+{#                            </a>#}
+{#                            <ul class="view-filter-menu">#}
+{#                                <li><span>Active</span></li>#}
+{#                                <li><a href="/clients?filter=archived&amp;sort=name">Archived</a></li>#}
+{#                                <li><a href="/clients?filter=all&amp;sort=name">All</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{##}
+{#                        <li class="view-filter-dropdown">#}
+{#                            <a class="view-filter-label" href="javascript:void">#}
+{#                                By Name &nbsp;#}
+{#                            </a>#}
+{#                            <ul class="view-filter-menu">#}
+{#                                <li><span>By Name</span></li>#}
+{#                                <li><a href="/clients?sort=date">Most Recent</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{#                    </ul>#}
+
+                    Active Clients
+{#                    <span class="de-emphasis"> - 1 total clients</span>#}
+                </h3>
+
+
+                <div id="color_search_results">
+                    {% if  colors > 0 %}
+
+                        <ul id="client-list" class="data-list">
+                            {% for  color in colors %} {# No colon after "color_search_results" #}
+                                <li class="client data-item data-item-clickable clearfix"
+                                    data-linkable="{% url 'client-detail' color.clientID %}">
+                                <div class="client-name data-item-title"><a
+                                        href="{% url 'client-detail' color.clientID %}">{{ color.cName }}</a></div>
+                                <div class="data-item-desc">
+                                </div>
+                                <div class="client-stats">
+                                    1 contact
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <i>No Clients</i>
+                    {% endif %}
+
+
+                </div>
+
+
+                <p>
+                    <a href="{% url 'client-create' %}" class="small silver light button"><span>+ New client</span></a>
+                </p>
+            </div>
+
+
+
+
+
+
+
+
+
+            <body>
+
+{#            <div class="content_section">#}
+{##}
+{#                {% if  colors.count == 0 %}#}
+{#                    <p><i>There are no colors in the database.</i></p>#}
+{#                {% else %}#}
+{#                    <table>#}
+{#                        <tr>#}
+{#                            <th colspan="2">Color</th>#}
+{#                            <th>Favorite?</th>#}
+{#                        </tr>#}
+{#                        <!--#}
+{#                           The yes/no like button is contained in the third column.#}
+{#                           The stylesheet eliminates the button's border and expands#}
+{#                           its width and height to 100%, so it fills its entire#}
+{#                           container: the table cell. It therefore appears to *be*#}
+{#                           the table cell.#}
+{##}
+{#                           The table cell is in this main template, the button in#}
+{#                           it, is in the "include"d sub-template. The button#}
+{#                           sub-template is used by the below for-loop, and also by#}
+{#                           the toggle_color_like view, which is called by Ajax.#}
+{##}
+{#                           Ajax calls Django, which renders the sub-template and#}
+{#                           feeds it back to Ajax, which then replaces the current#}
+{#                           button/sub-template with the new one.#}
+{##}
+{#                           (The data-color_id is how the id is passed to JQuery. See#}
+{#                           http://api.jquery.com/data/ )#}
+{#                        -->#}
+{#                        {% for  color in colors %} {# No colon after "colors" #}
+{#                            <tr>#}
+{#                                <td style="background-color: {{ color.name }};"#}
+{#                                    class="td__color_color">{{ color.cName }}</td>#}
+{#                                <td class="td__color_name">{{ color.name }}</td>#}
+{#                                <td id="toggle_client_like_cell_{{ color.clientID }}"#}
+{#                                    class="td__toggle_client_like_button" data-color_id="{{ color.clientID }}">#}
+{#                                    {% include "epedigree/color_like_link__html_snippet.txt" %}#}
+{#                                </td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                    </table>#}
+{#                {% endif %}#}
+{#            </div>#}
+            <script type='text/javascript' src="{% static 'jquery-1.11.1.min.js' %}"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+            <script type='text/javascript'
+                    src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+            <script language="javascript">
+                /*
+                 Before our JavaScript can be imported, the following JavaScript
+                 variables need to be set from Django variables. While these
+                 values could be hard-coded into the JavaScript, this allows
+                 them to be centrally located.
+                 */
+                //From color_liker.views.MIN_SEARCH_CHARS
+                var MIN_SEARCH_CHARS = {{ MIN_SEARCH_CHARS }};
+
+                //The url to submit the search form. From color_liker.urls
+                var SUBMIT_URL = "{% url 'client-list2' %}";
+
+                /*
+                 the url to toggle the like. From color_liker.urls
+
+                 Since an id must be provided to the Django url, give it a
+                 bogus one, then immediately lop it off (along with the
+                 ending '/'). It is re-appended by the JavaScript.
+                 */
+                var LIKE_URL_PRE_ID = "{% url 'toggle_client_like' color_id='999999999' %}"
+                LIKE_URL_PRE_ID = LIKE_URL_PRE_ID.substring(0, LIKE_URL_PRE_ID.length - "999999999/".length);
+            </script>
+            <script type='text/javascript' src="{% static 'js/color_ajax_search.js' %}"></script>
+            <script type='text/javascript' src="{% static 'js/color_ajax_like.js' %}"></script>
+            <script type='text/javascript' src="{% static 'js/color_ajax_main.js' %}"></script>
+            </body>
+
+        </div>
+    </div>
+{% endblock %}
+{% block mainaction %}
+    {% if user.is_staff %}
+    <a href="{% url 'client-create' %}">+ New Client</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Order Line{% endblock %}
+
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+            <h1>Delete Order Line</h1>
+
+            <h2>Really delete {{ orderlines.item }} from {{ orderlines.order }}?</h2>
+
+            <p>It will be permanently lost</p>
+
+            <form method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-primary">Delete</button>
+                <a href="{% url 'order-detail' object.order.pk %}" class="btn">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block rightcolumn %}
+{% endblock %}

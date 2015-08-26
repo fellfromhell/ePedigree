@@ -1,0 +1,45 @@
+{% extends 'epedigree/../base.html' %}
+{% block main %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+
+                    </div>
+                    <div class="panel-body">
+                        <form action="/login/" method="post" role="form">
+                            {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+		                    {% endif %}
+                            <fieldset>
+                                <div class="form-group">
+                                    username:
+                                    <input class="form-control" placeholder="E-mail"  name="username" value="{{ username}}" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    password:
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                </div>
+                                {% if state != "Login Form" %}
+                                    {{ state }}
+                                {% endif %}
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-lg btn-success btn-block" value="Login" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load django_markdown %}
+{% block title %}Lot Detail{% endblock %}
+{% block content %}
+
+    <div id="invoice-contents">
+        <div id="invoice-contents-bg">
+            <div id="invoice-contents-wrapper" class="clearfix ">
+                <div class="invoice-top-info">
+
+
+                </div>
+                <div id="invoice-main">
+                    <div id="invoice-paper" class="clearfix rounded">
+                        <div class="invoice-breadcrumbs clearfix">
+                            <div class="invoice-breadcrumbs-wrapper">
+                                <ul class="breadcrumb">
+                                    <li><a href="{% url 'lot-list' %}">Back to Lot List</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <style>
+                            #invoice-template h1 {
+                                color: #444444;
+                                font-size: 200%;
+                                letter-spacing: 0px;
+                                line-height: 1.2;
+                                margin-bottom: 0;
+                                padding-bottom: 0;
+                            }
+
+                            #invoice-template h2 {
+                                color: silver;
+                                font-size: 150%;
+                                letter-spacing: 0px;
+                                line-height: 1.2;
+                                margin-top: 5px;
+                                padding-bottom: 5px;
+                            }
+
+                            #invoice-template .invoice-addresses {
+                                clear: both;
+                                margin: 20px 0 40px;
+                            }
+
+                            #invoice-template .address {
+                                float: left;
+                                width: 220px;
+                            }
+
+                            #invoice-template .from-address {
+                                margin-left: 25px;
+                                margin-right: 25px;
+                                padding-left: 3.5em;
+                                text-indent:-3.5em;
+                            }
+                            #invoice-template .from-address p {
+                                padding-left: 1.5em;
+                                text-indent:0.0em;
+                                position: relative;
+                                top: -20px;
+                            }
+                            #invoice-template .to-address {
+                                margin-left: 25px;
+                                margin-right: 25px;
+                                padding-left: 3.5em;
+                                text-indent:-3.5em;
+                            }
+                            #invoice-template .to-address p {
+                                padding-left: 1.5em;
+                                text-indent:0.0em;
+                                position: relative;
+                                top: -20px;
+                            }
+                            #invoice-template .invoice-table {
+                                margin-bottom: 10px;
+                            }
+
+                            #invoice-template .invoice-formatted-display {
+                                margin-bottom: 40px;
+                                width: 465px;
+                                font-size: 90%;
+                            }
+
+                            #invoice-template .invoice-formatted-display h3 {
+                                color: #AAAAAA;
+                                font-size: 120%;
+                                margin-bottom: 10px;
+                                padding-bottom: 0;
+                            }
+                        </style>
+
+                        <div id="invoice-template">
+                            <div class="clearfix">
+                                <div style="float:right">
+
+                                </div>
+
+                                <h1>Lot # {{ object.lotNumber }} </h1>
+
+                                <h2>Item : {{ object.item }}</h2>
+                                <h3>Expiration : {{ object.expiryDate }}</h3>
+
+                            </div>
+
+                            <div class="invoice-addresses clearfix">
+
+
+                                {% for lottransaction in object.lots.all %}
+                                <div class="address from-address">
+                                    <h4>Sold To</h4>
+
+                                            <p><strong>{{ lottransaction.soldToName }}</strong></p>
+                                            <p>{{ lottransaction.soldToAddressLine1 }}</p>
+                                            <p>{{ lottransaction.soldToAddressLine2 }}</p>
+                                            <p>{{ lottransaction.soldToCity }} {{ lottransaction.soldToState }} {{ lottransaction.soldToPostalCode }}</p>
+
+
+                                </div>
+
+
+                                <div class="address to-address">
+                                    <h4>Ship To</h4>
+
+                                            <p><strong>{{ lottransaction.shipToName }}</strong></p>
+                                            <p>{{ lottransaction.shipToAddressLine1 }}</p>
+                                            <p>{{ lottransaction.shipToAddressLine2 }}</p>
+                                            <p>{{ lottransaction.shipToCity }} {{ lottransaction.shipToState }} {{ lottransaction.shipToPostalCode }}</p>
+
+
+                                </div>
+                                <div class="clearfix">
+                                    <a
+                                    href="{% url 'lottrans-delete' object.pk lottransaction.pk %}"><i
+                                    class="fa fa-remove"></i></a>
+                                </div>
+
+                                {% endfor %}
+
+
+                            </div>
+
+
+
+
+
+                            <div class="left-module" id="invoice-note-display">
+                                <p>{{ object.description|markdown|default:"No description" }}
+                                </p>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+                <div id="invoice-actions-bar">
+                    <div class="topper"></div>
+                    <div class="bottom">
+
+                        <ul id="invoice-actions-list">
+                            <li><a href="{% url 'lottrans-create' object.id %}" title="Add Lot Transaction"><i
+                                    class="fa fa-plus fa-2x"></i></a>
+                            </li>
+                            <li><a href="{% url 'lot-update' object.id %}" title="Edit Lot"><i
+                                    class="fa fa-pencil fa-2x"></i></a>
+                            </li>
+                            <li><a href="{% url 'lot-certify' object.id %}" title="Certify Lot"><i
+                                    class="fa fa-magic fa-2x"></i></a>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

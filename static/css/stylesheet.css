@@ -1,0 +1,60 @@
+.search_section  {
+   float: left;
+}
+.content_section  {
+   float: left;
+}
+table  {
+   border:1px solid #000;
+   border-spacing: 0px;
+   background-color: #EEE;
+   border-collapse:collapse;
+}
+thead  {
+   font-weight: bold;
+   text-decoration: underline;
+}
+th  {
+   border:1px solid #000;
+   padding: 4px;
+}
+/*
+   All table cells except for the yes/no buttons, should have 4px of
+   padding.
+
+   The yes/no-buttons should completely fill the cell, so the cell
+   itself (appears to) behave like a button.
+ */
+td  {
+   text-align: center;
+   vertical-align: middle;
+   padding: 4px;
+   border: 1px solid #000;
+}
+.td__toggle_color_like_button  {
+   padding: 0px;
+}
+button  {
+   border: 0px;
+   /*
+      So the buttons completely fill their containers--the table cell.
+    */
+   width: 100%;
+   height: 100%;
+}
+.td__color_color  {
+   text-align: right;
+}
+.td__color_name  {
+   text-align: left;
+}
+.td__color_is_liked  {
+   text-align: center;
+}
+.button_liked  {
+   background-color: #CD0;
+}
+.button_unliked  {
+   background-color: white;
+}
+

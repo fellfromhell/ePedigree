@@ -1,0 +1,16 @@
+
+{% extends 'epedigree/../base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+        <h3> User Page </h3>
+
+        {% if user.is_authenticated %}
+        <h2> {{ user }} is logged in</h2>
+{#        <h1>{{ user }} is following {{ followedbins }}</h1>#}
+        {% endif %}
+
+{% endblock %}
+
+

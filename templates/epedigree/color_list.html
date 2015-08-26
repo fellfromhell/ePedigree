@@ -1,0 +1,105 @@
+{% comment %}
+   humanize: For the "apnumber" filter, to display "two" instead of
+   "2". Requries 'django.contrib.humanize' in INSTALLED_APPS
+{% endcomment %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Color Likenatorizer</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width"/>
+      <style type="text/css">
+         .search_section  {
+            float: left;
+         }
+         .content_section  {
+            float: left;
+         }
+         table  {
+            border:1px solid #000;
+            border-spacing: 0px;
+            background-color: #EEE;
+            border-collapse:collapse;
+         }
+         thead  {
+            font-weight: bold;
+            text-decoration: underline;
+         }
+         th  {
+            border:1px solid #000;
+            padding: 4px;
+         }
+         td  {
+            text-align: center;
+            vertical-align: middle;
+            padding: 4px;
+            border:1px solid #000;
+         }
+         .td__color_color  {
+            text-align: right;
+         }
+         .td__color_name  {
+            text-align: left;
+         }
+         .liked  {
+            text-align: center;
+            background-color: #CD0;
+         }
+         .unliked  {
+            text-align: center;
+            background-color: white;
+         }
+      </style>
+   </head>
+<body>
+   <div class="search_section">
+      <form id="search_colors_form_id" method="get" action="{% url 'color-list' %}">
+         <input type="text" id="search_text" name="search_text"/>
+         {# csrf_token is not needed when the method is "get" #}
+         <input id="id_pic_submit_button" type="submit" value="Search for color"/>
+         <p>(Requires {{ MIN_SEARCH_CHARS|apnumber }} or more characters)</p>
+      </form>
+ 
+      {% if  search_text|length >= MIN_SEARCH_CHARS %}
+         <p><b>Searching for &quot;<code>{{ search_text }}</code>&quot;:</b>
+         {% if  color_search_results.count > 0 %}
+            </p>
+            <ul>
+               {% for  color in color_search_results %} {# No colon after "color_search_results" #}
+                  <li>{{ color.name }}</li>
+               {% endfor %}
+            </ul>
+         {% else %}
+            <i>No results</i></p>
+         {% endif %}
+      {% endif %}
+   </div>
+   <div class="content_section">
+      <h1>Color Likenatorizer</h1>
+ 
+      {% if  colors.count == 0 %}
+         <p><i>There are no colors in the database.</i></p>
+      {% else %}
+         <table>
+            <tr>
+               <th colspan="2">Color</th>
+               <th>Favorite?</th>
+            </tr>
+            {% for  color in colors %} {# No colon after "colors" #}
+               <tr>
+                  <td style="background-color: {{ color.name }};" class="td__color_color"
+                     >{{ color.name }}</td>
+                  <td class="td__color_name">{{ color.name }}</td>
+                  <td class="{% if not color.is_favorited %}un{% endif %}liked"
+                     ><a href="{% url 'toggle_color_like' color.id %}"
+                     >{% if color.is_favorited %}Yes{% else %}No{% endif %}</a></td>
+               </tr>
+            {% endfor %}
+         </table>
+      {% endif %}
+   </div>
+   <script language="javascript">
+      document.getElementById("search_text").focus();
+   </script>
+</body></html>

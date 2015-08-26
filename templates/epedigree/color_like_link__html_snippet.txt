@@ -1,0 +1,2 @@
+<button class="button_{% if not color.is_favorited %}un{% endif %}liked"
+   >{% if color.is_favorited %}Yes{% else %}No{% endif %}</button>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>{% block title %}Generic title{% endblock %}</title>
+
+    <meta content="authenticity_token" name="csrf-param"/>
+    <meta content="{% block csrf %} {% csrf_token %} {% endblock %}" name="csrf-token"/>
+
+
+    <script src="{{ STATIC_URL }}/static/js/prototype.js" type="text/javascript"></script>
+    <link href="{{ STATIC_URL }}/static/css/font-awesome.min.css" rel="stylesheet">
+{#    <link href="{{ STATIC_URL }}/static/css/bootstrap.min.css" rel="stylesheet">#}
+    <link href="{{ STATIC_URL }}/static/css/style.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="{{ STATIC_URL }}/static/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link href="{{ STATIC_URL }}/static/css/print.css" media="print" rel="stylesheet" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+{% block header %}
+<div id="header" class="clearfix">
+    <div id="header-wrapper">
+
+        <div id="header-right">
+            <ul id="header-intro" class="clearfix">
+                {% if user.is_authenticated %}
+                    {% csrf_token %}
+                    <li class="first">
+                        <a href="/" class="small"><i class="fa fa-fw fa-user"></i> Home </a>
+                    </li>
+                    {% if user.is_staff %}
+                    <li class="next">
+                        <a href="/" class="small"><i class="fa fa-fw fa-user"></i> Staff </a>
+                    </li>
+                    {% endif %}
+                    <li class="last">
+                        <a href="/accounts/logout" class="small"><i class="fa fa-fw fa-sign-out"></i> Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="first">
+                        <a href="/accounts/login/" class="small"><i class="fa fa-fw fa-sign-out"></i> Log In</a>
+                    </li>
+                    <li class="last">
+                        <a href="/accounts/register" class="small"><i class="fa fa-fw fa-user"></i> Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div id="header-logo">
+            <h5><a href="/" >EPedigree</a></h5>
+        </div>
+
+
+    </div>
+</div>
+<!-- /header -->
+{% endblock %}
+
+{% block navigation %}
+<div id="navigation" class="clearfix">
+    <div id="navigation-wrapper">
+        <ul class="clearfix">
+            <li {% if 'client' in view.breadcrumbs %}class="selected"{% endif %}><a href="{% url 'client-list' %}" >Clients</a></li>
+            <li {% if 'order' in view.breadcrumbs %}class="selected"{% endif %}><a href="{% url 'order-list' %}" >Orders</a></li>
+            <li {% if 'item' in view.breadcrumbs %}class="selected"{% endif %}><a href="{% url 'item-list' %}" >Items</a></li>
+            <li {% if 'lot' in view.breadcrumbs %}class="selected"{% endif %}><a href="{% url 'lot-list' %}" >Lots</a></li>
+        </ul>
+    </div>
+</div>
+<!-- /header -->
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+<div id="contents">
+    <div id="contents-wrapper">
+
+
+        <!-- grail -->
+        <div id="container" class="clearfix">
+            {% block leftcolumn %}
+            <div id="left" class="column"></div>
+            {% endblock %}
+            {% block centercolumn %}
+            <div id="center" class="column">
+                <div id="center-wrapper">
+
+                    <div class="search" id="search">
+                        <form accept-charset="UTF-8" action="{% url 'client-create' %}" data-remote="true"
+                              id="client-search" method="get">
+                            <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden"
+                                                                                  value="&#x2713;"/></div>
+                            <a class="search-clear" href="#"
+                               onclick="jQuery(this).parent()[0].reset(); jQuery(this).parent().trigger(&#x27;submit&#x27;); jQuery(this).parent().removeClass(&#x27;clearable&#x27;);; return false;"></a>
+                            <label for="q">Company Name</label>
+                            <input autocomplete="off" id="q" name="q"
+                                   onkeyup="jQuery(this).parent().addClass(&#x27;loading&#x27;); if (this.timeout) { clearTimeout(this.timeout) } that = jQuery(this); this.timeout = setTimeout(function() { that.parent().trigger(&#x27;submit&#x27;); }, 800);"
+                                   type="text"/>
+                        </form>
+                        <script src="/assets/external/jquery.infieldlabel.js"
+                                type="text/javascript"></script>
+                        <script type="text/javascript">
+                            jQuery(function () {
+                                jQuery("label").inFieldLabels();
+                            });
+                            jQuery('#client-search').bind('ajax:complete', function () {
+                                $$('#search form').first().removeClassName('loading').removeClassName('clearable');
+                                if ($('q').value) {
+                                    $$('#search form').first().addClassName('clearable')
+                                }
+                            })
+                        </script>
+                    </div>
+
+                    <h1>Clients</h1>
+
+                    <ul class="sub-tab-menu">
+                        <li class="selected"><a href="/clients">Companies</a></li>
+                        <li><a href="/contacts">People</a></li>
+                    </ul>
+
+
+                    <div class="left-module" id="client-container">
+                        <h3>
+
+                            <ul class="view-filter">
+                                <li class="view-filter-dropdown">
+                                    <a class="view-filter-label" href="javascript:void">
+                                        Active
+                                    </a>
+                                    <ul class="view-filter-menu">
+                                        <li><span>Active</span></li>
+                                        <li><a href="/clients?filter=archived&amp;sort=name">Archived</a></li>
+                                        <li><a href="/clients?filter=all&amp;sort=name">All</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="view-filter-dropdown">
+                                    <a class="view-filter-label" href="javascript:void">
+                                        By Name &nbsp;
+                                    </a>
+                                    <ul class="view-filter-menu">
+                                        <li><span>By Name</span></li>
+                                        <li><a href="/clients?sort=date">Most Recent</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            Active Clients
+                            <span class="de-emphasis"> - 1 total clients</span>
+                        </h3>
+
+                        <ul id="client-list" class="data-list">
+                            <li class="client data-item data-item-clickable clearfix"
+                                data-linkable="/clients/118770">
+
+                                <div class="client-name data-item-title"><a href="/clients/118770">Client 1</a>
+                                </div>
+
+
+                                <div class="data-item-desc">
+                                </div>
+
+
+
+                            </li>
+                        </ul>
+
+                        <script type="text/javascript">
+                            jQuery('.data-list *[data-linkable]').live('click', function (e) {
+                                if (!jQuery(e.target).is('a')) {
+                                    window.location = jQuery(e.currentTarget).data('linkable');
+                                }
+                            });
+                        </script>
+
+
+                        <p>
+                            <a href="/clients/new" class="small silver light button"><span>+ New client</span></a>
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+            {% endblock %}
+            {% block rightcolumn %}
+            <div id="right" class="column">
+                <div id="right-wrapper">
+
+
+                    <div class="right-module" id="main-action">
+                        {% block mainaction %}
+                            <a href="{% url 'client-create' %}">+ New Client</a>
+                        {% endblock %}
+                    </div>
+
+                    {% block actions %}
+                    {% if user.is_staff %}
+                    <div class="right-module" id="tasks-module">
+                        <h3>Actions</h3>
+                        <ul class="actions-list">
+                            <li id="invoice-action"><a href="{% url 'client-create' %}">New Client</a></li>
+                            <li id="estimate-action"><a href="{% url 'order-create' %}">Create Order</a></li>
+                            <li id="project-action"><a href="{% url 'item-create' %}">Add Item</a></li>
+{#                            <li id="time-action"><a href="/hours/new">Track Time</a></li>#}
+                            <li id="expense-action"><a href="{% url 'lot-create' %}">Add Lot</a></li>
+{#                            <li id="task-action"><a href="/tasks">Manage Tasks</a></li>#}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endblock %}
+
+                    {% block export %}
+{#                    <div class="right-module" id="export-module">#}
+{#                        <h3>Import/Export</h3>#}
+{#                        <ul class="actions-list">#}
+{#                            <li><a href="/import/clients" id="import-link">Import Clients from CSV</a></li>#}
+{#                            <li><a href="/clients.csv" id="export-link">Export Clients as CSV</a></li>#}
+{#                        </ul>#}
+{#                    </div>#}
+                    {% endblock %}
+
+
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+        <!-- /grail -->
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div id="footer">
+    <div id="footer-wrapper" class="clearfix">
+        <div id="footer-menu">
+
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

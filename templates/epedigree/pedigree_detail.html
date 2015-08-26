@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% load django_markdown %}
+{% block title %}EPedigree Detail{% endblock %}
+{% block content %}
+<div id="invoice-contents">
+    <div id="invoice-contents-bg">
+        <div id="invoice-contents-wrapper" class="clearfix ">
+            <div class="invoice-top-info">
+
+
+            </div>
+
+
+            <div id="invoice-main">
+                <div id="invoice-paper" class="clearfix rounded">
+                    <div class="invoice-breadcrumbs clearfix">
+                        <div class="invoice-breadcrumbs-wrapper">
+                            <ul class="breadcrumb">
+{#                                <li><a href="https://vivin.roninapp.com/invoices">Back</a></li>#}
+                                <li><a href="{% url 'order-list' %}">All Orders</a></li>
+{#                                <li><a href="{% url 'client-detail' object.clientID_id %}">{{ object.clientID }}</a>#}
+                                </li>
+{#                                <li>#}
+{#                                    <a href="{% url 'client-detail' object.clientID_id %}/orders">{{ object.clientID }}#}
+{#                                        orders</a></li>#}
+
+{#                                <li><a href="{% url 'order-detail' object.pk %}">#{{ object.title }}</a></li>#}
+                            </ul>
+                        </div>
+                    </div>
+
+                        <style>
+                            #invoice-template h1 {
+                                color: #444444;
+                                font-size: 200%;
+                                letter-spacing: 0px;
+                                line-height: 1.2;
+                                margin-bottom: 0;
+                                padding-bottom: 0;
+                            }
+
+                            #invoice-template .invoice-addresses {
+                                clear: both;
+                                margin: 20px 0 10px;
+                            }
+
+                            #invoice-template .address {
+                                float: left;
+                                width: 220px;
+                            }
+
+                            #invoice-template .from-address {
+                                margin-left: 25px;
+                                margin-right: 25px;
+                                padding-left: 3.5em;
+                                text-indent:-3.5em;
+                            }
+                            #invoice-template .from-address p {
+                                padding-left: 1.5em;
+                                text-indent:0.0em;
+                                position: relative;
+                                top: -20px;
+                            }
+                            #invoice-template .to-address {
+                                margin-left: 15px;
+                                margin-right: 25px;
+                                padding-left: 3.5em;
+                                text-indent:-4.5em;
+                            }
+                            #invoice-template .to-address p {
+                                padding-left: 3.0em;
+                                text-indent:-0.5em;
+                                position: relative;
+                                top: -20px;
+                            }
+                            #invoice-template .invoice-table {
+                                margin-bottom: 10px;
+                            }
+                            #invoice-template .invoice-right-box {
+                                padding-left: 40.0em;
+                                text-indent:0.0em;
+                                clear: both;
+                                letter-spacing: 0px;
+                                line-height: 70%;
+                            }
+
+
+
+                        </style>
+
+                    <div id="invoice-template">
+                        <div class="clearfix">
+                            <div style="float:right">
+
+                            </div>
+
+                            <h2>EPedigree Report for Order #{{ object.title }}</h2>
+
+                        </div>
+                        <div class="invoice-left-box clearfix">
+                                <p>Order Date: {{ object.orderDate }}</p>
+                        </div>
+                        <div class="invoice-right-box clearfix">
+                                <p>Certified By: {{ lot.user.first_name }} {{ lot.user.last_name }}</p>
+                                <p>Email: {{ lot.user.email }}</p>
+                        </div>
+
+                        <div class="invoice-addresses clearfix">
+
+
+                            <div class="address to-address">
+                                <h4>Sold By</h4>
+
+                                <p><strong>Mainspring Distribution</strong></p>
+
+                                <p>316 LANGFORD RD</p>
+                                <p>Satellite III</p>
+
+                                <p>BROOMALL, PA 19008</p>
+
+
+                            </div>
+                            <div class="address to-address">
+                                <h4>Ship From</h4>
+
+                                <p><strong>Mainspring Distribution</strong></p>
+
+                                <p>316 LANGFORD RD</p>
+                                <p>Satellite III</p>
+
+                                <p>BROOMALL, PA 19008</p>
+
+
+                            </div>
+
+
+                        </div>
+                        <div class="invoice-addresses clearfix">
+                            <div class="address to-address">
+                                <h4>Sold To</h4>
+
+                                <p><strong>{{ object.clientID }}</strong></p>
+
+                                <p>{{ object.clientID.cAddressLine1 }}</p>
+                                <p>{{ object.clientID.cAddressLine2 }}</p>
+                                <p>{{ object.clientID.cCity }}, {{ object.clientID.cState }} {{ object.clientID.cPostalCode }}</p>
+
+
+                            </div>
+                            <div class="address to-address">
+                                <h4>Ship To</h4>
+
+                                <p><strong>{{ object.clientID }}</strong></p>
+
+                                <p>{{ object.clientID.sAddressLine1 }}</p>
+                                <p>{{ object.clientID.sAddressLine2 }}</p>
+                                <p>{{ object.clientID.sCity }}, {{ object.clientID.sState }} {{ object.clientID.sPostalCode }}</p>
+
+
+                            </div>
+                        </div>
+
+                        <table class="invoice-table">
+                            <tr class="invoice-table-caption">
+                                <td colspan="2">
+                                    Lot Item: {{ lot.item.name }}
+                                </td>
+                                <td colspan="2">
+                                    Lot: {{ lot.lotNumber }}
+                                </td>
+                                <td colspan="1">
+                                    NDC: {{ lot.ndc }}
+                                </td>
+                            </tr>
+                            <tr class="invoice-table-header">
+                                <th data-left="left" >Order Item: {{ orderline.item }}</th>
+                                <th>Qty: {{ orderline.amount }}</th>
+                                <th>Unit: {{ orderline.get_measurement_display }}</th>
+                                <th></th>
+                                <th>Exp Date: {{ lot.expiryDate }}</th>
+                            </tr>
+                        </table>
+                        <div class="invoice-addresses clearfix">
+
+
+                            {% for lottransaction in lottrans %}
+                                <div class="address from-address">
+                                    <h4>Sold To</h4>
+
+                                    <p><strong>{{ lottransaction.soldToName }}</strong></p>
+
+                                    <p>{{ lottransaction.soldToAddressLine1 }}</p>
+
+                                    <p>{{ lottransaction.soldToAddressLine2 }}</p>
+
+                                    <p>{{ lottransaction.soldToCity }} {{ lottransaction.soldToState }} {{ lottransaction.soldToPostalCode }}</p>
+
+
+                                </div>
+
+
+                                <div class="address to-address">
+                                    <h4>Ship To</h4>
+
+                                    <p><strong>{{ lottransaction.shipToName }}</strong></p>
+
+                                    <p>{{ lottransaction.shipToAddressLine1 }}</p>
+
+                                    <p>{{ lottransaction.shipToAddressLine2 }}</p>
+
+                                    <p>{{ lottransaction.shipToCity }} {{ lottransaction.shipToState }} {{ lottransaction.shipToPostalCode }}</p>
+
+
+                                </div>
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+
+                        <div class="left-module" id="invoice-note-display">
+                            <p>{{ lot.description }}
+                            </p>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+
+            <div id="invoice-actions-bar">
+                <div class="topper"></div>
+                <div class="bottom">
+                    {% if user.is_staff %}
+                    <ul id="invoice-actions-list">
+                            <li><a href="{% url 'lottrans-create' lot.id %}" title="Add Lot Transaction"><i
+                                    class="fa fa-plus fa-2x"></i></a>
+                            </li>
+                            <li><a href="{% url 'lot-update' lot.id %}" title="Edit Lot"><i
+                                    class="fa fa-pencil fa-2x"></i></a>
+                            </li>
+                    </ul>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

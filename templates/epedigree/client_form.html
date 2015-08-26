@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Add Client{% endblock %}
+
+{% block centercolumn %}
+    <div id="center" class="column">
+        <div id="center-wrapper">
+            <h1>Add Client</h1>
+
+            <form method="POST">{% csrf_token %}
+                {#    {{ form.as_ul }}#}
+                {% if form.non_field_errors %}
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="col-lg-4">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <div id="{{ form.cName.auto_id }}_container">
+                                {{ form.cName.help_text }}
+                                <div>
+                                    <td>{{ form.cName.label_tag }} </td>
+                                    <td>{{ form.cName }}</td>
+                                </div>
+                                <div id="{{ form.cName.auto_id }}_errors">
+                                    {{ form.cName.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.cAddressLine1.auto_id }}_container">
+                                {{ form.cAddressLine1.help_text }}
+                                <div>
+                                    <td>{{ form.cAddressLine1.label_tag }}</td>
+                                    <td>{{ form.cAddressLine1 }}</td>
+                                </div>
+                                <div id="{{ form.cAddressLine1.auto_id }}_errors">
+                                    {{ form.cAddressLine1.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.cAddressLine2.auto_id }}_container">
+                                {{ form.cAddressLine2.help_text }}
+                                <div>
+                                    <td>{{ form.cAddressLine2.label_tag }}</td>
+                                    <td>{{ form.cAddressLine2 }}</td>
+                                </div>
+                                <div id="{{ form.cAddressLine2.auto_id }}_errors">
+                                    {{ form.cAddressLine2.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.cCity.auto_id }}_container">
+                                {{ form.cCity.help_text }}
+                                <div>
+                                    <td>{{ form.cCity.label_tag }}</td>
+                                    <td>{{ form.cCity }}</td>
+                                </div>
+                                <div id="{{ form.cCity.auto_id }}_errors">
+                                    {{ form.cCity.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.cState.auto_id }}_container">
+                                {{ form.cState.help_text }}
+                                <div>
+                                    <td>{{ form.cState.label_tag }}</td>
+                                    <td>{{ form.cState }}</td>
+                                </div>
+                                <div id="{{ form.cState.auto_id }}_errors">
+                                    {{ form.cState.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.cPostalCode.auto_id }}_container">
+                                {{ form.cPostalCode.help_text }}
+                                <div>
+                                    <td>{{ form.cPostalCode.label_tag }}</td>
+                                    <td>{{ form.cPostalCode }}</td>
+                                </div>
+                                <div id="{{ form.cPostalCode.auto_id }}_errors">
+                                    {{ form.cPostalCode.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-4">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <div id="{{ form.sName.auto_id }}_container">
+                                {{ form.sName.help_text }}
+                                <div>
+                                    <td>{{ form.sName.label_tag }} </td>
+                                    <td>{{ form.sName }}</td>
+                                </div>
+                                <div id="{{ form.sName.auto_id }}_errors">
+                                    {{ form.sName.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.sAddressLine1.auto_id }}_container">
+                                {{ form.sAddressLine1.help_text }}
+                                <div>
+                                    <td>{{ form.sAddressLine1.label_tag }}</td>
+                                    <td>{{ form.sAddressLine1 }}</td>
+                                </div>
+                                <div id="{{ form.sAddressLine1.auto_id }}_errors">
+                                    {{ form.sAddressLine1.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.sAddressLine2.auto_id }}_container">
+                                {{ form.sAddressLine2.help_text }}
+                                <div>
+                                    <td>{{ form.sAddressLine2.label_tag }}</td>
+                                    <td>{{ form.sAddressLine2 }}</td>
+                                </div>
+                                <div id="{{ form.sAddressLine2.auto_id }}_errors">
+                                    {{ form.sAddressLine2.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.sCity.auto_id }}_container">
+                                {{ form.sCity.help_text }}
+                                <div>
+                                    <td>{{ form.sCity.label_tag }}</td>
+                                    <td>{{ form.sCity }}</td>
+                                </div>
+                                <div id="{{ form.sCity.auto_id }}_errors">
+                                    {{ form.sCity.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.sState.auto_id }}_container">
+                                {{ form.sState.help_text }}
+                                <div>
+                                    <td>{{ form.sState.label_tag }}</td>
+                                    <td>{{ form.sState }}</td>
+                                </div>
+                                <div id="{{ form.sState.auto_id }}_errors">
+                                    {{ form.sState.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="{{ form.sPostalCode.auto_id }}_container">
+                                {{ form.sPostalCode.help_text }}
+                                <div>
+                                    <td>{{ form.sPostalCode.label_tag }}</td>
+                                    <td>{{ form.sPostalCode }}</td>
+                                </div>
+                                <div id="{{ form.sPostalCode.auto_id }}_errors">
+                                    {{ form.sPostalCode.errors }}
+                                </div>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <button class="btn btn-primary" type="submit">Save</button>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+{% block rightcolumn %}
+{% endblock %}

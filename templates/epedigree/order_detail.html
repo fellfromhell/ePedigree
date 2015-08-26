@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load django_markdown %}
+{% block title %}Order Detail{% endblock %}
+{% block content %}
+<div id="invoice-contents">
+    <div id="invoice-contents-bg">
+        <div id="invoice-contents-wrapper" class="clearfix ">
+            <div class="invoice-top-info">
+
+
+            </div>
+
+
+            <div id="invoice-main">
+                <div id="invoice-paper" class="clearfix rounded">
+                    <div class="invoice-breadcrumbs clearfix">
+                        <div class="invoice-breadcrumbs-wrapper">
+                            <ul class="breadcrumb">
+{#                                <li><a href="https://vivin.roninapp.com/invoices">Back</a></li>#}
+                                <li><a href="{% url 'order-list' %}">All Orders</a></li>
+                                <li><a href="{% url 'client-detail' object.clientID_id %}">{{ object.clientID }}</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'client-detail' object.clientID_id %}/orders">{{ object.clientID }}
+                                        orders</a></li>
+
+                                <li><a href="{% url 'order-detail' object.pk %}">#{{ object.title }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="label-container">
+                        <div class=" {{ object.get_status_display }}-label"></div>
+                    </div>
+                    <style>
+                        #invoice-template h1 {
+                            color: #444444;
+                            font-size: 220%;
+                            letter-spacing: 0px;
+                            line-height: 1.2;
+                            margin-bottom: 0;
+                            padding-bottom: 0;
+                        }
+
+                        #invoice-template h2 {
+                            color: silver;
+                            font-size: 170%;
+                            letter-spacing: 0px;
+                            line-height: 1.2;
+                            margin-top: 5px;
+                            padding-bottom: 15px;
+                        }
+
+                        #invoice-template .invoice-addresses {
+                            clear: both;
+                            margin: 20px 0 40px;
+                        }
+
+                        #invoice-template .address {
+                            float: left;
+                            width: 220px;
+                        }
+
+                        #invoice-template .from-address {
+                            margin-right: 25px
+                        }
+
+                        #invoice-template .invoice-table {
+                            margin-bottom: 30px;
+                        }
+
+                        #invoice-template .invoice-formatted-display {
+                            margin-bottom: 40px;
+                            width: 465px;
+                            font-size: 90%;
+                        }
+
+                        #invoice-template .invoice-formatted-display h3 {
+                            color: #AAAAAA;
+                            font-size: 120%;
+                            margin-bottom: 10px;
+                            padding-bottom: 0;
+                        }
+                    </style>
+
+                    <div id="invoice-template">
+                        <div class="clearfix">
+                            <div style="float:right">
+
+                            </div>
+
+                            <h1>Order #{{ object.title }}</h1>
+
+{#                            <h2>Mainspringrx website maintenance</h2>#}
+                        </div>
+
+                        <div class="invoice-addresses clearfix">
+                            <div id="invoice-right-box">
+                                <table>
+                                    <tr>
+                                        <td class="right-box-label">Order No.</td>
+                                        <td>{{ object.title }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="right-box-label">Order Date</td>
+                                        <td>July 8, 2015</td>
+                                    </tr>
+
+
+
+
+                                </table>
+                            </div>
+
+                            <div class="address from-address">
+                                <h4>From</h4>
+
+                                <p class="attn"><strong>Mainspring Distribution</strong></p>
+
+                                <p>316 LANGFORD RD</p>
+
+                                <p>BROOMALL, PA 19008</p>
+
+                                <p><a href="mailto:vcyriac@gmail.com">vcyriac@gmail.com</a></p>
+
+
+                            </div>
+
+
+                            <div class="address to-address">
+                                <h4>To</h4>
+
+                                <p class="attn"><strong>{{ object.clientID }}</strong></p>
+
+                                <p>{{ object.clientID.cAddressLine1 }}</p>
+                                <p>{{ object.clientID.cAddressLine2 }}</p>
+                                <p>{{ object.clientID.cCity }}, {{ object.clientID.cState }} {{ object.clientID.cPostalCode }}</p>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <table class="invoice-table">
+                            <tr class="invoice-table-caption">
+                                <td colspan="5">
+                                    Order Items
+                                </td>
+                            </tr>
+
+                            <tr class="invoice-table-header">
+                                <th>Item Description</th>
+                                <th>Qty</th>
+                                <th>Unit</th>
+                                <th class="invoice-column-price">Expiry Date</th>
+                                <th>ePedigree</th>
+                            </tr>
+
+                            {% for orderline in object.orders.all %}
+                            <tr class="invoice-item">
+                                <td class="invoice-column-desc" width="40%">
+                                    <p>{{ orderline.item }}</p>
+                                </td>
+                                <td class="invoice-column-quantity">
+                                    {{ orderline.amount }}
+                                </td>
+                                <td class="invoice-column-price">
+                                    {{ orderline.get_measurement_display }}
+                                </td>
+                                <td class="invoice-column-total">
+                                    <a href="{% url 'lot-detail' orderline.lotnum.pk %}" class="small silver light button"><span>{{ orderline.lotnum.expiryDate }}</span></a>
+                                </td>
+                                <td class="invoice-column-total">
+                                    <a href="{% url 'pedigree-detail' orderline.order.pk orderline.id %}" class="small silver light button"><span>{{ orderline.lotnum.lotNumber }}</span></a>
+                                    {% if user.is_staff %}
+                                    <a href="{% url 'orderline-delete' object.pk orderline.pk %}"><i class="fa fa-remove"></i></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+
+
+                            {% endfor %}
+
+                            <tr>
+                                <td colspan="5">
+                                </td>
+                            </tr>
+
+                            <tr class="invoice-table-caption">
+                                <td colspan="5">
+{#                                    more stuff#}
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+
+                        <div class="left-module" id="invoice-note-display">
+                            <p>{{ object.description }}
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div id="invoice-actions-bar">
+                <div class="topper"></div>
+                <div class="bottom">
+                        {% if user.is_staff %}
+                        <ul id="invoice-actions-list">
+                            <li><a href="{% url 'orderline-create' object.pk %}" title="Add Order Line"><i
+                                    class="fa fa-plus fa-2x"></i></a>
+                            </li>
+                            <li><a href="{% url 'order-update' object.pk %}" title="Edit Order"><i
+                                    class="fa fa-pencil fa-2x"></i></a>
+                            </li>
+                        </ul>
+                        {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

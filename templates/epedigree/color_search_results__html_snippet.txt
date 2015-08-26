@@ -1,0 +1,21 @@
+{% if  search_text|length >= MIN_SEARCH_CHARS %}
+   <p><b>Searching for &quot;<code>{{ search_text }}</code>&quot;:</b>
+   {% if  color_search_results.count > 0 %}
+      </p>
+      <ul id="client-list" class="data-list">
+         {% for  color in color_search_results %} {# No colon after "color_search_results" #}
+            <li class="client data-item data-item-clickable clearfix"
+                                data-linkable="{% url 'client-detail' color.clientID %}">
+            <div class="client-name data-item-title"><a href="{% url 'client-detail' color.clientID %}">{{ color.cName }}</a></div>
+            <div class="data-item-desc">
+            </div>
+            <div class="client-stats">
+                1 contact
+            </div>
+         {% endfor %}
+      </ul>
+   {% else %}
+      <i>No results</i></p>
+   {% endif %}
+{% endif %}
+
